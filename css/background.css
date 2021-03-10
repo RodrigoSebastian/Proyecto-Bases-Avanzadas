@@ -1,0 +1,89 @@
+img.bg {
+    /* Set rules to fill background */
+    min-height: 100%;
+    min-width: 1024px;
+      
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+      
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+  @media screen and (max-width: 1024px) { /* Specific to this particular image */
+    img.bg {
+      left: 50%;
+      margin-left: -512px;   /* 50% */
+    }
+  }
+
+.texto_debajo_izquierda{
+    position: absolute;
+    left: 3%;
+    bottom: 10.74%;
+
+    color: white;
+    font-weight: bold;
+    font-size: 96px;
+}
+
+.texto_debajo_centrado{
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+
+    color: white;
+    font-weight: bold;
+    font-size: 42px;
+    text-align: center;
+}
+
+.btn_contenedor{
+  position: absolute;
+  right: 3%;
+  bottom: 12.5%;
+
+  color: white;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+
+  background: rgba(250, 210, 211, 0.06);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+}
+
+.preloader {
+  position: absolute;
+  left: 48%;
+  top: 45%;
+  align-content: center;
+
+  width: 70px;
+  height: 70px;
+  border: 10px solid #eee;
+  border-top: 10px solid #666;
+  border-radius: 50%;
+
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container{
+  opacity: 0;
+  transition: 2.0s;
+}
