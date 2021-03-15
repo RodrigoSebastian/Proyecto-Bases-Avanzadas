@@ -1,0 +1,40 @@
+.centerCard {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center {
+    padding: 70px 0;
+    border: 3px solid green;
+    text-align: center;
+}
+
+.center2 {
+    text-align: center;
+    display: inline-block;
+}
+
+.inputColor {
+    color: white;
+}
+
+.btn {
+    background-color: #FF5AA7;
+}
+
+.btn:hover {
+    background-color: #A32147;
+}
+
+.input::placeholder {
+    font-size: 2px;
+}
+
+div.uk-card {
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
