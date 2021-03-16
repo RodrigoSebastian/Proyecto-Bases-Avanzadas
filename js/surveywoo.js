@@ -77,7 +77,6 @@ function buildQuestionType(element){
     let questionNumber = element.target.id[element.target.id.length - 1];
     let content = '#' + "answerContent" + questionNumber;
 
-
     if($(content).children().length > 0){
         $(content).children().remove();
     }
@@ -146,6 +145,7 @@ function buildSingle(element) {
         var checkbox = $('<input></input>');
         checkbox.addClass('uk-radio');
         checkbox.attr('type', 'radio');
+        checkbox.attr("name", "radio" + questionNumber);
         checkbox.attr('id', 'answerC' + questionNumber + '-' + subAnswer);
         div.append(checkbox);
         grid.append(div);
