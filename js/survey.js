@@ -1,84 +1,141 @@
-let questions = [];
+var questions = [];
 
 $(document).ready(() => {
-    /*
-    $('#questionType').bind('change', () => {
-        let option = $('#questionType').val();
+    let firstQuestion = new Question();
+    questions.push(firstQuestion)
+    console.log(questions.length)
+});
 
-        if($("#questionContainer").children().length > 0)
-            $("#questionContainer").children().remove();
+class Question {
+    rootTag;
+    questionNumber;
+    selector;
+    that;
+
+    constructor(){
+        this.that = this;
+        this.that.CreateCard();
+    }
+
+    CreateCard() {
+
+        this.that.questionNumber = parseInt(questions.length);
+        this.that.rootTag = $('<div></div>');
+
+        this.that.rootTag.addClass('uk-card uk-card-default uk-card-hover uk-card-body');
+        $('#questionContainer').append(this.that.rootTag);
+
+        let title = $('<h3></h3>');
+        title.addClass('uk-card-title');
+        title.text('Question title');
+        this.that.rootTag.append(title);
+
+        let div = $('<div></div>');
+        div.addClass('uk-margin uk-card-title');
+
+        let input = $('<input>');
+        input.addClass('uk-input');
+        input.type = "text";
+        div.append(input)
+        this.that.rootTag.append(div);
+
+        this.that.QuestionBody()
+    }
+
+    QuestionBody() {
+
+        let questionType = $('<h4></h4>');
+        questionType.text('Question type');
+        this.that.rootTag.append(questionType);
+
+        let div = $('<div></div>');
+        div.addClass('uk-margin');
+        this.that.rootTag.append(div);
+
+        this.that.selector = $('<select></select>');
+        this.that.selector.addClass('uk-select');
+        this.that.selector.attr("id", "selector" + String(this.that.questionNumber));
+        div.append(this.that.selector);
+
+        var option = $('<option></option>');
+        option.attr("value", "0");
+        option.attr('selected', 'selected');
+        option.attr('disabled', 'disabled');
+        option.text('Select an option');
+        this.that.selector.append(option);
+
+        var option = $('<option></option>');
+        option.attr("value", "1");
+        option.text('Open question');
+        this.that.selector.append(option);
+
+        var option = $('<option></option>');
+        option.attr("value", "2");
+        option.text('Multiple option');
+        this.that.selector.append(option);
+
+        var option = $('<option></option>');
+        option.attr("value", "3");
+        option.text('Single option');
+        this.that.selector.append(option);
+
+        let questionContent = $('<div></div>');
+        questionContent.id = "questionContent" + String(this.that.questionNumber);
+        this.that.rootTag.append(questionContent);
+
+        let core = "#selector" + String(this.that.questionNumber)
+
+        const optionCX = this.OptionSet;
+        const questionNumber = this.that.questionNumber
+
+        document.getElementById('selector' + questionNumber).addEventListener('change', () => {
+            if($("#questionContent" + String(questionNumber)).children().length > 0)
+                $("#questionContent" + String(questionNumber)).children().remove();
 
         switch(parseInt(option)){
             case 1: {
-                openQuestion();
+                that.OpenQuestion();
                 break;
             }
             case 2: {
-                multipleSelection();
+                that.MultipleSelection();
                 break;
             }
             case 3: {
-                singleSelection();
+                that.SingleSelection();
                 break;
             }
             default : {
                 break;
             }
         }
-    });
-    */
-
-    questionss.push(new Question())
-});
-
-class Question {
-    rootTag;
-    constructor(){
-        this.CreateCard();
+        });
     }
 
-    CreateCard() {
-        this.rootTag = document.createElement('div');
+    OptionSet(questionNumberX) {
+        
+        let option = $('#selector' + String(questionNumberX)).val();
 
-        div.className = "uk-card uk-card-default uk-card-hover uk-card-body";
-        $('#questionContainer').append(this.rootTag);
-
-        let title = document.createElement('h3');
-        title.className = "uk-card-title";
-        this.rootTag.append(title);
-
-        let div = document.createElement('div');
-        div.className = "uk-margin uk-card-title";
-        let input = document.createElement('input');
-            input.className = "uk-input";
-            input.type = "text";
-            div.append(input)
-        this.rootTag.append(div);
-
-        this.QuestionBody()
-    }
-
-    QuestionBody() {
-        let questionType = document.createElement('h4');
-        questionType.textContent = 'Qustrion type';
-        this.rootTag.append(questionType);
+        console.log(questionNumberX);
+            
+        
     }
 
     MultipleSelection() {
-
+        console.log('MS')
     }
 
-    SingleSelectio() {
-
+    SingleSelection() {
+        console.log('SS')
     }
 
     OpenQuestion() {
-
+        console.log('OP')
     }
 }
 
 function multipleSelection() {
-    let div = document.createElement('div');
+    let div = $('<div></div>');
     div.className = "uk-margin uk-grid-small uk-child-width-auto uk-grid multiSection";
     $("#questionContainer").append(div);
     addCheckBox();
