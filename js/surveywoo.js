@@ -5,13 +5,83 @@ $(document).ready(() => {
     CreateCard();
 
     $('#btnNewQuestion').click(CreateCard);
+
+    $('#btnFinish').click( () => {
+        let json = generarJson();
+
+        console.log(json);
+    });
 })
+
+function generarJson() {
+    let objJson = [];
+    let nombreJ = $("#txtSurveyName").val();
+    let descripcionJ = $("#txtSuveyDescription").val();
+    let cantidad = $("#questionContainer").find('.card-js').length;
+
+    if(nombreJ != '' && descripcionJ != '') {
+        let numPregunta = 1;
+        let preguntasJson = [];
+
+        for(let i = 1; i <= cantidad; i++) {
+
+            let pregunta = $("#name" + i).val();
+            let tipo_pregunta = $("#selector" + i).val();
+            let cantidad_respuestas = 0;
+
+            if(pregunta != '' && tipo_pregunta != null){
+                if(tipo_pregunta == 1) {
+                    cantidad_respuestas = 1;
+                }
+                else {
+                    cantidad_respuestas = $("#answerContent1").find('.uk-grid').length;
+                }
+
+                let respuestasJson = [];
+
+                for(let j = 0; j < cantidad_respuestas; j++){
+                    let respuesta = $("#answerI"+ i + "-" + j).val();
+                    let correctaBool = $("#answerC" + i + "-" + j).prop('checked');
+                    if(respuesta != ''){
+                        respuestasJson.push({respuesta:respuesta,opcion_correcta:correctaBool});
+                    }
+                    else {
+                        alert("Datos Faltantes: Respuesta " + j + " Pregunta: " + i);
+                        return null;
+                    }
+                }
+                
+                preguntasJson.push({pregunta:pregunta,respuestas:respuestasJson});
+            }
+            else{
+                alert("Datos Faltante: Titulo Pregunta "+ i +"/ Tipo Respuestas");
+                return null;
+            }
+        }
+        objJson.push(preguntasJson);
+    }
+    else{
+        alert("Datos Faltantes: Nombre o Descripción")
+        return null;
+    }
+
+    return objJson;
+}
+
+let saveText = (text, filename) => {
+    let a = document.createElement('a');
+    $(a).attr('href','data:text/plain;charset=utf-8,'+encodeURIComponent(text));
+    a.setAttribute('download', filename);
+    a.click()
+}
+
 
 function CreateCard() {
     let cardNumber = rootTag.children().length
 
     var divRoot = $('<div></div>');
     divRoot.attr('id', 'card' + cardNumber);
+    divRoot.attr('class', 'card-js');
     rootTag.append(divRoot);
 
     var cardCore = $('<div></div>');
@@ -28,6 +98,7 @@ function CreateCard() {
 
     var input = $('<input></input>');
     input.addClass('uk-input');
+    input.attr('id','name' + cardNumber)
     div.append(input);
     cardCore.append(div);
 

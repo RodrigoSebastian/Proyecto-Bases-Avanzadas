@@ -3,7 +3,7 @@ var questions = [];
 $(document).ready(() => {
     let firstQuestion = new Question();
     questions.push(firstQuestion)
-    console.log(questions.length)
+    // console.log(questions.length)
 });
 
 class Question {

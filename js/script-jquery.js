@@ -11,4 +11,30 @@ $(document).ready(() => {
     $("#newSurvey").hover(function () {
          $(this).css("cursor","pointer");
         });
+
+    $("#newSurvey").click(() => {
+        // $(location).attr('href','../survey.html');
+        
+        let preg = {
+            hao: "1",
+            hao2: "13",
+            hao25: "14"
+        };
+
+        let obj = {
+            name: "PerroHTML",
+            password: "PerroPasswordHTML",
+            ppgg: preg
+        };
+
+        // saveText(JSON.stringify(obj),'json_testo.json')
+        console.log(obj);
+    });
+
+    let saveText = (text, filename) => {
+        let a = document.createElement('a');
+        $(a).attr('href','data:text/plain;charset=utf-8,'+encodeURIComponent(text));
+        a.setAttribute('download', filename);
+        a.click()
+    }
 });
