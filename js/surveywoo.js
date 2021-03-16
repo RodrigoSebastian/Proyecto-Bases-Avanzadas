@@ -3,6 +3,8 @@ let rootTag;
 $(document).ready(() => {
     rootTag = $('#questionContainer');
     CreateCard();
+
+    $('#btnNewQuestion').click(CreateCard);
 })
 
 function CreateCard() {
@@ -123,9 +125,10 @@ function buildOpen(content, questionNumber) {
 
 function buildSingle(element) {
     var questionNumber = element.target.id[element.target.id.length - 1];
+    var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
 
-    if(questionNumber < 4){
-        var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
+    if(subAnswer < 5){
+       
         var grid = $('<div uk-grid></div>')
         var div = $('<div></div>')
 
@@ -153,9 +156,9 @@ function buildSingle(element) {
 
 function buildMultiple(element) {
     var questionNumber = element.target.id[element.target.id.length - 1];
+    var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
 
-    if(questionNumber < 4) {
-        var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
+    if(subAnswer < 5) {
         var grid = $('<div uk-grid></div>')
         var div = $('<div></div>')
 
