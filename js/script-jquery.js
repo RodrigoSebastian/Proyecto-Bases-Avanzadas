@@ -13,22 +13,22 @@ $(document).ready(() => {
         });
 
     $("#newSurvey").click(() => {
-        // $(location).attr('href','../survey.html');
+        $(location).attr('href','../survey.html');
         
-        let preg = {
-            hao: "1",
-            hao2: "13",
-            hao25: "14"
-        };
+        // let preg = {
+        //     hao: "1",
+        //     hao2: "13",
+        //     hao25: "14"
+        // };
 
-        let obj = {
-            name: "PerroHTML",
-            password: "PerroPasswordHTML",
-            ppgg: preg
-        };
+        // let obj = {
+        //     name: "PerroHTML",
+        //     password: "PerroPasswordHTML",
+        //     ppgg: preg
+        // };
 
         // saveText(JSON.stringify(obj),'json_testo.json')
-        console.log(obj);
+        // console.log(obj);
     });
 
     let saveText = (text, filename) => {

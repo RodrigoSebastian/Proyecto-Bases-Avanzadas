@@ -34,7 +34,7 @@ function generarJson() {
 
                 if(tipo_pregunta == 1) {
                     cantidad_respuestas = 1;
-                    respuestasJson.push({respuesta:"ABIERTA"});
+                    respuestasJson.push({respuesta:"0"});
                 }
                 else {
                     cantidad_respuestas = $("#answerContent" + i).find('.uk-grid').length;
