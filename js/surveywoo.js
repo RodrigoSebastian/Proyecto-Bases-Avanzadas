@@ -92,6 +92,25 @@ function CreateCard() {
     cardCore.addClass('uk-card uk-cardX uk-border-rounded uk-card-default uk-card-hover uk-card-body uk-animation-scale-up');
     divRoot.append(cardCore);
 
+    // Question number
+    /*
+    let questionCardNumber = $('<div></div>');
+    questionCardNumber.addClass('uk-clearfix uk-border-rounded uk-border-rounded');
+    let gridLeft = $('<div></div>');
+    gridLeft.addClass('uk-float-right');
+    questionCardNumber.append(gridLeft);
+    let cardCoreNumber = $('<div></div>');
+    cardCoreNumber.addClass('uk-card uk-card-default uk-card-body')
+    cardCoreNumber.attr('style', 'width: 15%; height: 15%; padding: 3%; margin-top: 5%; margin-left: 5%;');
+    let number = $("<h4></h4>");
+    number.text(cardNumber);
+    cardCoreNumber.append(number);
+    
+    //gridLeft.append(questionCardNumber);
+
+    rootTag.append(questionCardNumber);
+    */
+
     var cardTitle = $('<h3></h3>')
     cardTitle.addClass('uk-card-title')
     cardTitle.text('Question Title');
