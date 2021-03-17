@@ -1,4 +1,5 @@
 let rootTag;
+const miPerro = 'localhost:3000';
 
 $(document).ready(() => {
     rootTag = $('#questionContainer');
@@ -9,12 +10,18 @@ $(document).ready(() => {
     $('#btnFinish').click( () => {
         let json = generarJson();
         if(json != null){
-            saveText(JSON.stringify(json),'json_testo.json')
+            post_request(json);
         }
     });
 
     $("#btnDelete").click(deleteQuestion);
 })
+
+let post_request = (json) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", `${miPerro}/cuestionario`);
+    xhr.send(json);
+}
 
 function generarJson() {
     let objJson = [];
