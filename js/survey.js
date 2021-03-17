@@ -3,7 +3,6 @@ var questions = [];
 $(document).ready(() => {
     let firstQuestion = new Question();
     questions.push(firstQuestion)
-    // console.log(questions.length)
 });
 
 class Question {
@@ -18,11 +17,10 @@ class Question {
     }
 
     CreateCard() {
-
         this.that.questionNumber = parseInt(questions.length);
         this.that.rootTag = $('<div></div>');
 
-        this.that.rootTag.addClass('uk-card uk-card-default uk-card-hover uk-card-body');
+        this.that.rootTag.addClass('uk-card uk-card-default uk-card-hover uk-card-body cardQuestion');
         $('#questionContainer').append(this.that.rootTag);
 
         let title = $('<h3></h3>');
@@ -113,12 +111,8 @@ class Question {
     }
 
     OptionSet(questionNumberX) {
-        
         let option = $('#selector' + String(questionNumberX)).val();
-
         console.log(questionNumberX);
-            
-        
     }
 
     MultipleSelection() {

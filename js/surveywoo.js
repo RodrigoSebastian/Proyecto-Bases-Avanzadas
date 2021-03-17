@@ -12,6 +12,8 @@ $(document).ready(() => {
             saveText(JSON.stringify(json),'json_testo.json')
         }
     });
+
+    $("#btnDelete").click(deleteQuestion);
 })
 
 function generarJson() {
@@ -87,7 +89,7 @@ function CreateCard() {
     rootTag.append(divRoot);
 
     var cardCore = $('<div></div>');
-    cardCore.addClass('uk-card uk-card-default uk-card-hover uk-card-body');
+    cardCore.addClass('uk-card uk-cardX uk-border-rounded uk-card-default uk-card-hover uk-card-body uk-animation-scale-up');
     divRoot.append(cardCore);
 
     var cardTitle = $('<h3></h3>')
@@ -99,7 +101,7 @@ function CreateCard() {
     div.addClass('uk-margin uk-card-title');
 
     var input = $('<input></input>');
-    input.addClass('uk-input');
+    input.addClass('uk-input uk-border-rounded');
     input.attr('id','name' + cardNumber)
     div.append(input);
     cardCore.append(div);
@@ -113,7 +115,7 @@ function CreateCard() {
     cardCore.append(div);
 
     var selector = $('<select></select>');
-    selector.addClass('uk-select');
+    selector.addClass('uk-select uk-border-rounded');
     selector.attr("id", "selector" + String(cardNumber));
     cardCore.append(selector);
 
@@ -146,16 +148,44 @@ function CreateCard() {
     $(selector).bind('change', buildQuestionType);
 }
 
+function deleteQuestion() {
+    if(parseInt(rootTag.children().length) > 0)
+        rootTag.children()[rootTag.children().length - 1].remove();
+}
+
+function deleteAnswer(element) {
+    let questionNumber = element.target.id[element.target.id.length - 1];
+    let elements = parseInt($('#answerContent' + questionNumber).children().length)
+    
+    if(elements - 1 > 2)
+        $('#answerContent' + questionNumber).children()[$('#answerContent' + questionNumber).children().length - 1].remove();
+}
+
 function buildQuestionType(element){
     let questionNumber = element.target.id[element.target.id.length - 1];
     let content = '#' + "answerContent" + questionNumber;
 
-    if($(content).children().length > 0){
+    if($(content).children().length > 0)
         $(content).children().remove();
-    }
 
     let selectorVal = $("#" + element.target.id).val();
     console.log(selectorVal);
+
+    $(content).append($('<br>'))
+
+    let button = $('<button></button>')
+    button.addClass('uk-button uk-border-rounded uk-button-primary uk-width-1-1 uk-margin-small-bottom')
+    button.text('Add another answer');
+    button.attr('id', 'singleBtn' + questionNumber);
+    $(content).append(button);
+
+    let deleteAnswerBtn = $('<button></button>')
+    deleteAnswerBtn.addClass('uk-button uk-border-rounded uk-button-primary uk-width-1-1 uk-margin-small-bottom')
+    deleteAnswerBtn.text('Delete last answer');
+    deleteAnswerBtn.attr('style', 'background-color: #f4511e; color: white;');
+    deleteAnswerBtn.attr('id', 'deleteBtn' + questionNumber);
+    $(content).append(deleteAnswerBtn);
+    $(deleteAnswerBtn).click(deleteAnswer);
 
     switch (parseInt(selectorVal)){
         case 1:{
@@ -163,20 +193,11 @@ function buildQuestionType(element){
             break;
         }
         case 2: {
-            let button = $('<button></button>')
-            button.addClass('uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom')
-            button.text('Add another answer');
-            button.attr('id', 'singleBtn' + questionNumber);
-            $(content).append(button);
             $('#singleBtn' + questionNumber).click(buildMultiple)
             break;
         }
         case 3: {
-            let button = $('<button></button>')
-            button.addClass('uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom')
-            button.text('Add another answer');
-            button.attr('id', 'singleBtn' + questionNumber);
-            $(content).append(button);
+
             $('#singleBtn' + questionNumber).click(buildSingle)
             break;
         }
@@ -187,7 +208,7 @@ function buildOpen(content, questionNumber) {
     let div = $('<div></div>')
     div.addClass('uk-margin')
     let textarea = $('<textarea></textarea>')
-    textarea.addClass('uk-textarea')
+    textarea.addClass('uk-textarea uk-border-rounded')
     textarea.attr('disabled', 'disabled')
     textarea.attr('rows', '5')
     textarea.attr('id', 'answer' + questionNumber)
@@ -199,7 +220,7 @@ function buildSingle(element) {
     var questionNumber = element.target.id[element.target.id.length - 1];
     var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
 
-    if(subAnswer < 5){
+    if(subAnswer < 7){
        
         var grid = $('<div uk-grid></div>')
         var div = $('<div></div>')
@@ -207,7 +228,7 @@ function buildSingle(element) {
         div.addClass('uk-margin');
 
         var input = $('<input></input>');
-        input.addClass('uk-input');
+        input.addClass('uk-input uk-border-rounded');
         input.attr('type', 'text');
         input.attr('placeholder', 'Answer' + subAnswer);
         input.attr('id', 'answerI' + questionNumber + '-' + subAnswer);
@@ -231,14 +252,14 @@ function buildMultiple(element) {
     var questionNumber = element.target.id[element.target.id.length - 1];
     var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
 
-    if(subAnswer < 5) {
+    if(subAnswer < 7) {
         var grid = $('<div uk-grid></div>')
         var div = $('<div></div>')
 
         div.addClass('uk-margin');
 
         var input = $('<input></input>');
-        input.addClass('uk-input');
+        input.addClass('uk-input uk-border-rounded');
         input.attr('type', 'text');
         input.attr('placeholder', 'Answer' + subAnswer);
         input.attr('id', 'answerI' + questionNumber + '-' + subAnswer);
@@ -247,7 +268,7 @@ function buildMultiple(element) {
 
         var div = $('<div></div>')
         var checkbox = $('<input></input>')
-        checkbox.addClass('uk-checkbox')
+        checkbox.addClass('uk-checkbox uk-border-rounded')
         checkbox.attr('type', 'checkbox')
         checkbox.attr('id', 'answerC' + questionNumber + '-' + subAnswer);
         div.append(checkbox);

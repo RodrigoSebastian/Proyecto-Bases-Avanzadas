@@ -33,8 +33,19 @@
     font-size: 2px;
 }
 
+div.uk-cardX {
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 div.uk-card {
     margin-top: 2%;
     margin-left: 10%;
     margin-right: 10%;
+    opacity: 95%;
+}
+
+h3 {
+    font-weight: bold;
 }
