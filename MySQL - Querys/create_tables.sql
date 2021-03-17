@@ -38,10 +38,14 @@ CREATE TABLE Respuestas
 DROP TABLE IF EXISTS Usuarios;
 CREATE TABLE Usuarios
 (
-    id          int         NOT NULL,
+    id          int         NOT NULL AUTO_INCREMENT,
     usuario     varchar(50) NOT NULL,
     contrasenia varchar(50) NOT NULL,
     nombre      varchar(50) NOT NULL,
 
     PRIMARY KEY (id)
 );
+
+INSERT INTO usuarios VALUES
+(0,'torybolla','123','Rodrigo'),
+(0,'gaby','123','Gabriela');

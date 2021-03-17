@@ -8,8 +8,9 @@ $(document).ready(() => {
 
     $('#btnFinish').click( () => {
         let json = generarJson();
-
-        saveText(JSON.stringify(json),'json_testo.json')
+        if(json != null){
+            saveText(JSON.stringify(json),'json_testo.json')
+        }
     });
 })
 

@@ -1,4 +1,4 @@
-#USE gr_survey_service;
+USE gr_survey_service;
 
 DROP PROCEDURE IF EXISTS Guardar_Cuestionario;
 DELIMITER //
