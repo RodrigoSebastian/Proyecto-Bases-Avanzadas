@@ -27,10 +27,6 @@ const cuestionarioRoute = require('./routes/cuestionario.route');
     app.use(bodyParser.urlencoded({extended: true}));
 
 
-    //CORS
-    app.use(cors());
-    // Configurar cabeceras y cors
-
     //** Starting the server ***/
     app.listen(app.get('port'), () => {
         console.log('Server on port ', app.get('port'));
@@ -41,3 +37,8 @@ const cuestionarioRoute = require('./routes/cuestionario.route');
 
 
 app.use('/cuestionario',cuestionarioRoute);
+
+
+    //CORS
+    app.use(cors());
+    // Configurar cabeceras y cors

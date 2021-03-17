@@ -10,7 +10,8 @@ $(document).ready(() => {
     $('#btnFinish').click( () => {
         let json = generarJson();
         if(json != null){
-            post_request(json);
+            // post_request(json);
+            get_request();
         }
     });
 
@@ -19,8 +20,20 @@ $(document).ready(() => {
 
 let post_request = (json) => {
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", `${miPerro}/cuestionario`);
+    xhr.open("POST", `${miPerro}/cuestionario`,true);
     xhr.send(json);
+}
+
+let get_request = () => {
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+    xhr.open("GET", `${miPerro}/cuestionario`,true);
+    xhr.onload = () => {
+        let jsonResponse = xhr.response;
+
+        console.log(jsonResponse);
+    }
+    xhr.send();
 }
 
 function generarJson() {
