@@ -9,7 +9,7 @@ $(document).ready(() => {
     $('#btnFinish').click( () => {
         let json = generarJson();
 
-        console.log(json);
+        saveText(JSON.stringify(json),'json_testo.json')
     });
 })
 
@@ -23,42 +23,43 @@ function generarJson() {
         let numPregunta = 1;
         let preguntasJson = [];
 
-        for(let i = 1; i <= cantidad; i++) {
+        for(let i = 0; i < cantidad; i++) {
 
             let pregunta = $("#name" + i).val();
             let tipo_pregunta = $("#selector" + i).val();
             let cantidad_respuestas = 0;
 
-            if(pregunta != '' && tipo_pregunta != null){
-                if(tipo_pregunta == 1) {
-                    cantidad_respuestas = 1;
-                }
-                else {
-                    cantidad_respuestas = $("#answerContent1").find('.uk-grid').length;
-                }
-
+            if(pregunta != '' && (tipo_pregunta != 1 || tipo_pregunta != 2 || tipo_pregunta != 3)){
                 let respuestasJson = [];
 
-                for(let j = 0; j < cantidad_respuestas; j++){
-                    let respuesta = $("#answerI"+ i + "-" + j).val();
-                    let correctaBool = $("#answerC" + i + "-" + j).prop('checked');
-                    if(respuesta != ''){
-                        respuestasJson.push({respuesta:respuesta,opcion_correcta:correctaBool});
-                    }
-                    else {
-                        alert("Datos Faltantes: Respuesta " + j + " Pregunta: " + i);
-                        return null;
+                if(tipo_pregunta == 1) {
+                    cantidad_respuestas = 1;
+                    respuestasJson.push({respuesta:"ABIERTA"});
+                }
+                else {
+                    cantidad_respuestas = $("#answerContent" + i).find('.uk-grid').length;
+
+                    for(let j = 0; j < cantidad_respuestas; j++){
+                        let respuesta = $("#answerI"+ i + "-" + j).val();
+                        let correctaBool = $("#answerC" + i + "-" + j).prop('checked');
+                        if(respuesta != ''){
+                            respuestasJson.push({respuesta:respuesta,opcion_correcta:correctaBool});
+                        }
+                        else {
+                            alert("Datos Faltantes: Respuesta " + j + " Pregunta: " + i);
+                            return null;
+                        }
                     }
                 }
-                
-                preguntasJson.push({pregunta:pregunta,respuestas:respuestasJson});
+                preguntasJson.push({pregunta:pregunta,tipo_pregunta:tipo_pregunta,respuestas:respuestasJson});
             }
             else{
                 alert("Datos Faltante: Titulo Pregunta "+ i +"/ Tipo Respuestas");
                 return null;
             }
         }
-        objJson.push(preguntasJson);
+        objJson.push({nombre:nombreJ,descripcion:descripcionJ,preguntas:preguntasJson});
+        console.log("JSON Generado")
     }
     else{
         alert("Datos Faltantes: Nombre o Descripción")
