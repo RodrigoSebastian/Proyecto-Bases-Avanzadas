@@ -7,7 +7,6 @@ const cuestionarioRoute = require('./routes/cuestionario.route');
     const morgan = require('morgan');
     const cors = require('cors');
     const path = require('path');
-    const bodyParser = require("body-parser");
 
     //** Servidor ***/
     const app = express();
@@ -21,11 +20,17 @@ const cuestionarioRoute = require('./routes/cuestionario.route');
     app.use(morgan('dev'));
 
     //Enviar y recibir jsons
-    app.use(bodyParser.json());
+    app.use(express.json());
 
     //Aceptar datos de formularios
-    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(express.urlencoded({extended: true}));
 
+    //CORS
+    app.use(cors());
+    // Configurar cabeceras y cors
+    // app.use((req,res, next)=>{
+    //     res.header('Access-Control-Allow-Origin', '*');
+    // })
 
     //** Starting the server ***/
     app.listen(app.get('port'), () => {
@@ -36,9 +41,12 @@ const cuestionarioRoute = require('./routes/cuestionario.route');
 // OBLIGATORIO -_-
 
 
-app.use('/cuestionario',cuestionarioRoute);
 
 
-    //CORS
-    app.use(cors());
-    // Configurar cabeceras y cors
+
+
+
+
+
+
+// Diego Montoya estuvo aquí

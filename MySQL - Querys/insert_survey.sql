@@ -2,8 +2,9 @@ USE gr_survey_service;
 
 DROP PROCEDURE IF EXISTS Guardar_Cuestionario;
 DELIMITER //
-CREATE PROCEDURE Guardar_Cuestionario(IN _json JSON)
+CREATE PROCEDURE Guardar_Cuestionario(IN _jsonA JSON)
     BEGIN
+        DECLARE _json JSON;
         DECLARE _tempID INT DEFAULT 0;
         DECLARE _nombre VARCHAR(50);
         DECLARE _descripcion VARCHAR(200);
@@ -19,6 +20,8 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _json JSON)
 
         DECLARE _respuestaI VARCHAR(100);
         DECLARE _respuestaCorrecta BOOL DEFAULT FALSE;
+
+        SET _json = JSON_EXTRACT(_jsonA,'$[0]');
 
         SET _nombre = JSON_UNQUOTE(JSON_EXTRACT(_json,'$.nombre'));
         SET _descripcion = JSON_UNQUOTE(JSON_EXTRACT(_json,'$.descripcion'));
@@ -60,6 +63,35 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _json JSON)
     END //
 
 DELIMITER ;
+
+CALL Guardar_Cuestionario('[
+  {
+    "nombre": "1",
+    "descripcion": "1",
+    "preguntas": [
+      {
+        "pregunta": "1",
+        "tipo_pregunta": "2",
+        "respuestas": [
+          {
+            "respuesta": "1",
+            "opcion_correcta": true
+          }
+        ]
+      },
+      {
+        "pregunta": "2",
+        "tipo_pregunta": "3",
+        "respuestas": [
+          {
+            "respuesta": "2",
+            "opcion_correcta": false
+          }
+        ]
+      }
+    ]
+  }
+]');
 
 CALL Guardar_Cuestionario('{"nombre":"Biología molecular","descripcion":"Examen final de biología molecular, es el valor del 50% del parcial.","preguntas":[{"pregunta":"¿A qué categoría pertenece el covid-19? (Si, no se que poner xd)","tipo_pregunta":"3","respuestas":[{"respuesta":"Pinchos :v","opcion_correcta":false},{"respuesta":"Gram positivas","opcion_correcta":false},{"respuesta":"Gram negativas","opcion_correcta":false},{"respuesta":"Adenovirus","opcion_correcta":false},{"respuesta":"Coronavirus","opcion_correcta":true}]},{"pregunta":"¿A qué categoría pertenece el covid-19?","tipo_pregunta":"2","respuestas":[{"respuesta":"Pinchos :v","opcion_correcta":false},{"respuesta":"Gram positivas","opcion_correcta":false},{"respuesta":"Coronavirus","opcion_correcta":true}]}]}');
 CALL Guardar_Cuestionario('{"nombre":"Hello hello","descripcion":"Este es un cuestionario de tu sufrimiento pasado :v","preguntas":[{"pregunta":"Quien es el hello hello?","tipo_pregunta":"3","respuestas":[{"respuesta":"Hugo","opcion_correcta":false},{"respuesta":"Larre","opcion_correcta":false},{"respuesta":"Hello hello this is juk :v","opcion_correcta":true}]},{"pregunta":"Arboles de la barranca (continua la canción)","tipo_pregunta":"1","respuestas":[{"respuesta":"0","opcion_correcta":true}]},{"pregunta":"MySQL","tipo_pregunta":"2","respuestas":[{"respuesta":"Troy - SQL","opcion_correcta":true},{"respuesta":"TRoy","opcion_correcta":false},{"respuesta":"Arturoy","opcion_correcta":false},{"respuesta":"La sobrina","opcion_correcta":true},{"respuesta":"Cristo redentor","opcion_correcta":false}]},{"pregunta":"Tengo hambre?","tipo_pregunta":"3","respuestas":[{"respuesta":"Si","opcion_correcta":true},{"respuesta":"no","opcion_correcta":false}]},{"pregunta":"¿Quién es kim? :v","tipo_pregunta":"1","respuestas":[{"respuesta":"0","opcion_correcta":true}]}]}');

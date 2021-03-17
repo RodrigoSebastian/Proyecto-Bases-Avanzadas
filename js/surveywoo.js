@@ -10,30 +10,35 @@ $(document).ready(() => {
     $('#btnFinish').click( () => {
         let json = generarJson();
         if(json != null){
-            // post_request(json);
-            get_request();
+            console.log(json);
+            post_request(json,'');
+            // saveText(JSON.stringify(json),'json_testo.json')
+            // get_request();
         }
     });
 
     $("#btnDelete").click(deleteQuestion);
 })
 
-let post_request = (json) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", `${miPerro}/cuestionario`,true);
-    xhr.send(json);
+let post_request = (json,uri) => {
+    fetch(`http://${miPerro}/cuestionario${uri}`, {
+    method: 'POST', // or 'PUT'
+    mode: 'cors',
+    body: JSON.stringify(json), // data can be `string` or {object}!
+    headers:{
+        'Content-Type': 'application/json'
+    }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
 }
 
 let get_request = () => {
-    let xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
-    xhr.open("GET", `${miPerro}/cuestionario`,true);
-    xhr.onload = () => {
-        let jsonResponse = xhr.response;
 
-        console.log(jsonResponse);
-    }
-    xhr.send();
+    fetch(`http://${miPerro}/cuestionario`,{ method: 'GET',
+    mode: 'cors'})
+    .then(response => response.json())
+    .then(data => console.log(data))
 }
 
 function generarJson() {
@@ -43,7 +48,6 @@ function generarJson() {
     let cantidad = $("#questionContainer").find('.card-js').length;
 
     if(nombreJ != '' && descripcionJ != '') {
-        let numPregunta = 1;
         let preguntasJson = [];
 
         for(let i = 0; i < cantidad; i++) {
