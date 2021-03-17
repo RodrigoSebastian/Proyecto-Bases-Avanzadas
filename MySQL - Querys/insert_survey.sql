@@ -28,7 +28,7 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _json JSON)
 #         SELECT _cantidadPreguntas,_preguntasJSON;
 #         AQUI DEBO INSERTAR EN TABLA CUESTIONARIO
         IF ((select count(*) from cuestionario where nombre = _nombre and descripcion=_descripcion and cantidadPreguntas=_cantidadPreguntas) = 0) THEN
-            insert into cuestionario values(1,_nombre,_descripcion,_cantidadPreguntas);
+            insert into cuestionario values(0,_nombre,_descripcion,_cantidadPreguntas);
         END IF;
         select id into _tempID from cuestionario where nombre = _nombre and descripcion=_descripcion and cantidadPreguntas=_cantidadPreguntas;
 
@@ -62,3 +62,4 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _json JSON)
 DELIMITER ;
 
 CALL Guardar_Cuestionario('{"nombre":"Biología molecular","descripcion":"Examen final de biología molecular, es el valor del 50% del parcial.","preguntas":[{"pregunta":"¿A qué categoría pertenece el covid-19? (Si, no se que poner xd)","tipo_pregunta":"3","respuestas":[{"respuesta":"Pinchos :v","opcion_correcta":false},{"respuesta":"Gram positivas","opcion_correcta":false},{"respuesta":"Gram negativas","opcion_correcta":false},{"respuesta":"Adenovirus","opcion_correcta":false},{"respuesta":"Coronavirus","opcion_correcta":true}]},{"pregunta":"¿A qué categoría pertenece el covid-19?","tipo_pregunta":"2","respuestas":[{"respuesta":"Pinchos :v","opcion_correcta":false},{"respuesta":"Gram positivas","opcion_correcta":false},{"respuesta":"Coronavirus","opcion_correcta":true}]}]}');
+CALL Guardar_Cuestionario('{"nombre":"Hello hello","descripcion":"Este es un cuestionario de tu sufrimiento pasado :v","preguntas":[{"pregunta":"Quien es el hello hello?","tipo_pregunta":"3","respuestas":[{"respuesta":"Hugo","opcion_correcta":false},{"respuesta":"Larre","opcion_correcta":false},{"respuesta":"Hello hello this is juk :v","opcion_correcta":true}]},{"pregunta":"Arboles de la barranca (continua la canción)","tipo_pregunta":"1","respuestas":[{"respuesta":"0","opcion_correcta":true}]},{"pregunta":"MySQL","tipo_pregunta":"2","respuestas":[{"respuesta":"Troy - SQL","opcion_correcta":true},{"respuesta":"TRoy","opcion_correcta":false},{"respuesta":"Arturoy","opcion_correcta":false},{"respuesta":"La sobrina","opcion_correcta":true},{"respuesta":"Cristo redentor","opcion_correcta":false}]},{"pregunta":"Tengo hambre?","tipo_pregunta":"3","respuestas":[{"respuesta":"Si","opcion_correcta":true},{"respuesta":"no","opcion_correcta":false}]},{"pregunta":"¿Quién es kim? :v","tipo_pregunta":"1","respuestas":[{"respuesta":"0","opcion_correcta":true}]}]}');

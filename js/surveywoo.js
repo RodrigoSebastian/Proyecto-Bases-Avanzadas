@@ -35,7 +35,7 @@ function generarJson() {
 
                 if(tipo_pregunta == 1) {
                     cantidad_respuestas = 1;
-                    respuestasJson.push({respuesta:"0"});
+                    respuestasJson.push({respuesta:"0",opcion_correcta:true});
                 }
                 else {
                     cantidad_respuestas = $("#answerContent" + i).find('.uk-grid').length;
@@ -55,7 +55,7 @@ function generarJson() {
                 preguntasJson.push({pregunta:pregunta,tipo_pregunta:tipo_pregunta,respuestas:respuestasJson});
             }
             else{
-                alert("Datos Faltante: Titulo Pregunta "+ i +"/ Tipo Respuestas");
+                alert("Datos Faltante: Titulo Pregunta "+ (i + 1) +" / Tipo Respuestas");
                 return null;
             }
         }
