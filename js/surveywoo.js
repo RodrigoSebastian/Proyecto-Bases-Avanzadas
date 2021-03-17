@@ -112,25 +112,6 @@ function CreateCard() {
     cardCore.addClass('uk-card uk-cardX uk-border-rounded uk-card-default uk-card-hover uk-card-body uk-animation-scale-up');
     divRoot.append(cardCore);
 
-    // Question number
-    /*
-    let questionCardNumber = $('<div></div>');
-    questionCardNumber.addClass('uk-clearfix uk-border-rounded uk-border-rounded');
-    let gridLeft = $('<div></div>');
-    gridLeft.addClass('uk-float-right');
-    questionCardNumber.append(gridLeft);
-    let cardCoreNumber = $('<div></div>');
-    cardCoreNumber.addClass('uk-card uk-card-default uk-card-body')
-    cardCoreNumber.attr('style', 'width: 15%; height: 15%; padding: 3%; margin-top: 5%; margin-left: 5%;');
-    let number = $("<h4></h4>");
-    number.text(cardNumber);
-    cardCoreNumber.append(number);
-    
-    //gridLeft.append(questionCardNumber);
-
-    rootTag.append(questionCardNumber);
-    */
-
     var cardTitle = $('<h3></h3>')
     cardTitle.addClass('uk-card-title')
     cardTitle.text('Question Title');
@@ -196,7 +177,7 @@ function deleteAnswer(element) {
     let questionNumber = element.target.id[element.target.id.length - 1];
     let elements = parseInt($('#answerContent' + questionNumber).children().length)
     
-    if(elements - 1 > 2)
+    if(elements - 1 > 0)
         $('#answerContent' + questionNumber).children()[$('#answerContent' + questionNumber).children().length - 1].remove();
 }
 
@@ -204,8 +185,16 @@ function buildQuestionType(element){
     let questionNumber = element.target.id[element.target.id.length - 1];
     let content = '#' + "answerContent" + questionNumber;
 
-    if($(content).children().length > 0)
+    if($(content).children().length > 0){
         $(content).children().remove();
+        try{
+            $('#singleBtn' + questionNumber).remove();
+            $('#deleteBtn' + questionNumber).remove();
+        }
+        catch{
+
+        }
+    }
 
     let selectorVal = $("#" + element.target.id).val();
     console.log(selectorVal);
@@ -216,14 +205,14 @@ function buildQuestionType(element){
     button.addClass('uk-button uk-border-rounded uk-button-primary uk-width-1-1 uk-margin-small-bottom')
     button.text('Add another answer');
     button.attr('id', 'singleBtn' + questionNumber);
-    $(content).append(button);
+    $('#card' + questionNumber).children().append(button);
 
     let deleteAnswerBtn = $('<button></button>')
     deleteAnswerBtn.addClass('uk-button uk-border-rounded uk-button-primary uk-width-1-1 uk-margin-small-bottom')
     deleteAnswerBtn.text('Delete last answer');
     deleteAnswerBtn.attr('style', 'background-color: #f4511e; color: white;');
     deleteAnswerBtn.attr('id', 'deleteBtn' + questionNumber);
-    $(content).append(deleteAnswerBtn);
+    $('#card' + questionNumber).children().append(deleteAnswerBtn);
     $(deleteAnswerBtn).click(deleteAnswer);
 
     switch (parseInt(selectorVal)){
@@ -259,7 +248,7 @@ function buildSingle(element) {
     var questionNumber = element.target.id[element.target.id.length - 1];
     var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
 
-    if(subAnswer < 7){
+    if(subAnswer < 5){
        
         var grid = $('<div uk-grid></div>')
         var div = $('<div></div>')
@@ -291,7 +280,7 @@ function buildMultiple(element) {
     var questionNumber = element.target.id[element.target.id.length - 1];
     var subAnswer = $('#' + 'answerContent' + questionNumber).children().length - 1;
 
-    if(subAnswer < 7) {
+    if(subAnswer < 5) {
         var grid = $('<div uk-grid></div>')
         var div = $('<div></div>')
 
