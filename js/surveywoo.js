@@ -29,12 +29,11 @@ let post_request = (json,uri) => {
         'Content-Type': 'application/json'
     }
     }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .catch(error => Swal.fire({ icon: 'error', title: `Oops... ${error}`, text: 'Something went wrong! We cannot connect to DB', }))
+    .then(response => Swal.fire( 'Nice!', 'Your survey has been saved!', 'success'))
 }
 
 let get_request = () => {
-
     fetch(`http://${miPerro}/cuestionario`,{ method: 'GET',
     mode: 'cors'})
     .then(response => response.json())
@@ -73,7 +72,12 @@ function generarJson() {
                             respuestasJson.push({respuesta:respuesta,opcion_correcta:correctaBool});
                         }
                         else {
-                            alert("Datos Faltantes: Respuesta " + j + " Pregunta: " + i);
+                            Swal.fire(
+                                'Missing data',
+                                `You have forgotten an answer ${j} for question ${i}`,
+                                'question'
+                              )
+                            //alert("Datos Faltantes: Respuesta " + j + " Pregunta: " + i);
                             return null;
                         }
                     }
@@ -81,7 +85,12 @@ function generarJson() {
                 preguntasJson.push({pregunta:pregunta,tipo_pregunta:tipo_pregunta,respuestas:respuestasJson});
             }
             else{
-                alert("Datos Faltante: Titulo Pregunta "+ (i + 1) +" / Tipo Respuestas");
+                Swal.fire(
+                    'Missing data',
+                    "You have forgotten a title for question " + (i + 1),
+                    'question'
+                  )
+                //alert("Datos Faltante: Titulo Pregunta "+ (i + 1) +" / Tipo Respuestas");
                 return null;
             }
         }
@@ -89,7 +98,12 @@ function generarJson() {
         console.log("JSON Generado")
     }
     else{
-        alert("Datos Faltantes: Nombre o Descripción")
+        Swal.fire(
+            'Missing data',
+            `You have forgotten survey name or description`,
+            'question'
+          )
+        //alert("Datos Faltantes: Nombre o Descripción")
         return null;
     }
 
@@ -102,7 +116,6 @@ let saveText = (text, filename) => {
     a.setAttribute('download', filename);
     a.click()
 }
-
 
 function CreateCard() {
     let cardNumber = rootTag.children().length
