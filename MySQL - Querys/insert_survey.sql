@@ -28,11 +28,13 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _jsonA JSON)
         SET _cantidadPreguntas = JSON_LENGTH(JSON_EXTRACT(_json,'$.preguntas'));
         SET _preguntasJSON = JSON_EXTRACT(_json,'$.preguntas');
 
-#         SELECT _cantidadPreguntas,_preguntasJSON;
-#         AQUI DEBO INSERTAR EN TABLA CUESTIONARIO
+#       SELECT _cantidadPreguntas,_preguntasJSON;
+#       AQUI DEBO INSERTAR EN TABLA CUESTIONARIO
+        
         IF ((select count(*) from cuestionario where nombre = _nombre and descripcion=_descripcion and cantidadPreguntas=_cantidadPreguntas) = 0) THEN
             insert into cuestionario values(0,_nombre,_descripcion,_cantidadPreguntas);
         END IF;
+
         select id into _tempID from cuestionario where nombre = _nombre and descripcion=_descripcion and cantidadPreguntas=_cantidadPreguntas;
 
         SET ind = 0;
@@ -42,8 +44,8 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _jsonA JSON)
             SET _respuestasJSON = JSON_EXTRACT(_preguntasJSON,CONCAT('$[',ind,'].respuestas'));
             SET _cantidadRespuestas = JSON_LENGTH(JSON_EXTRACT(_preguntasJSON,CONCAT('$[',ind,'].respuestas')));
 
-            IF ((select count(*) from preguntas where id = _tempID and numPregunta=ind) = 0) THEN
-                INSERT INTO preguntas VALUES(_tempID,ind,_preguntasI,_tipoPregunta,_cantidadRespuestas);
+            IF ((select count(*) from preguntas where id = _tempID and numPregunta = ind) = 0) THEN
+                INSERT INTO preguntas VALUES(0, _tempID,ind,_preguntasI,_tipoPregunta,_cantidadRespuestas);
                 END IF;
 
             SET ind2 = 0;
@@ -51,8 +53,8 @@ CREATE PROCEDURE Guardar_Cuestionario(IN _jsonA JSON)
                 SET _respuestaI = JSON_UNQUOTE(JSON_EXTRACT(_respuestasJSON,CONCAT('$[',ind2,'].respuesta')));
                 SET _respuestaCorrecta = JSON_EXTRACT(_respuestasJSON,CONCAT('$[',ind2,'].opcion_correcta'));
 
-                IF ((select count(*) from respuestas where idPregunta=ind and respuesta=_respuestaI) = 0) THEN
-                    INSERT INTO respuestas VALUES(_tempID,ind,_respuestaI,_respuestaCorrecta);
+                IF ((select count(*) from respuestas where idPregunta = ind and respuesta = _respuestaI) = 0) THEN
+                    INSERT INTO respuestas VALUES(0, _tempID,ind,_respuestaI,_respuestaCorrecta);
                     END IF;
 
                 SET ind2 = ind2 + 1;
