@@ -30,7 +30,9 @@ let post_request = (json,uri) => {
     }
     }).then(res => res.json())
     .catch(error => Swal.fire({ icon: 'error', title: `Oops... ${error}`, text: 'Something went wrong! We cannot connect to DB', }))
-    .then(response => Swal.fire( 'Nice!', 'Your survey has been saved!', 'success'))
+    .then(response => {
+        Swal.fire( 'Nice!', 'Your survey has been saved!', 'success');
+    })
 }
 
 let get_request = () => {

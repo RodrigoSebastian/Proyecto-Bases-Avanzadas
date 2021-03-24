@@ -32,6 +32,8 @@ const cuestionarioRoute = require('./routes/cuestionario.route');
     //     res.header('Access-Control-Allow-Origin', '*');
     // })
 
+    app.use('/cuestionario',cuestionarioRoute);
+
     //** Starting the server ***/
     app.listen(app.get('port'), () => {
         console.log('Server on port ', app.get('port'));
